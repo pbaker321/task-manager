@@ -93,7 +93,7 @@ def profile(username):
 
 @app.route("/logout")
 def logout():
-    # remove user from session cookies
+    # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("login"))
@@ -101,7 +101,8 @@ def logout():
 
 @app.route("/add_task")
 def add_task():
-    return render_template("add_task.html")
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("add_task.html", categories=categories)
 
 
 if __name__ == "__main__":
